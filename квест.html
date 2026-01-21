@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>💖 Казковий Валентинковий Квест 🏰</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&family=Pacifico&family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Фонові елементи -->
+  <div class="fairy fairy-1">🧚</div>
+  <div class="fairy fairy-2">🧚‍♀️</div>
+  <div class="fairy fairy-3">✨</div>
+  <div class="fairy fairy-4">🌟</div>
+
+  <div class="sparkle sparkle-1">✨</div>
+  <div class="sparkle sparkle-2">✨</div>
+  <div class="sparkle sparkle-3">✨</div>
+  <div class="sparkle sparkle-4">✨</div>
+
+  <!-- СТАРТОВИЙ ЕКРАН -->
+  <div id="start-screen" class="screen active">
+    <div class="magic-portal">
+      <div class="portal-glow"></div>
+      <div class="portal-ring"></div>
+      <div class="portal-center">
+        <div class="heart-beat">💖</div>
+      </div>
+      <div class="portal-sparkles">
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+      </div>
+    </div>
+
+    <div class="castle-container">
+      <div class="castle-wrapper">
+        <div class="castle">🏰</div>
+        <div class="castle-glow"></div>
+      </div>
+      <div class="castle-shadow"></div>
+    </div>
+
+    <h1 class="magic-title">
+      <span class="title-word title-word-1">Казковий</span>
+      <span class="title-word title-word-2">Валентинковий</span>
+      <span class="title-word title-word-3">Квест</span>
+    </h1>
+
+    <div class="story-text">
+      <div class="story-icon">🦄</div>
+      <p>У чарівному королівстві, де феї танцюють в місячному сяйві...</p>
+      <div class="story-icon">👑</div>
+      <p>Принц <span class="prince-name">Віталій</span> готує особливий сюрприз для принцеси <span class="princess-name">Єлезавети</span></p>
+      <div class="story-icon">🔮</div>
+      <p>Тільки справжнє серце може пройти всі випробування та відкрити таємницю</p>
+    </div>
+
+    <button onclick="goToMenu()" class="magic-button pulse-glow">
+      <div class="button-content">
+        <i class="fas fa-hat-wizard"></i>
+        <span>Почати магічну пригоду</span>
+        <i class="fas fa-magic"></i>
+      </div>
+      <div class="button-glow"></div>
+      <div class="button-sparkles">
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+      </div>
+    </button>
+
+    <div class="scroll-hint">
+      <div class="hint-text">Прокрути вниз для деталей</div>
+      <i class="fas fa-chevron-down bounce"></i>
+    </div>
+  </div>
+
+  <!-- ГОЛОВНЕ МЕНЮ -->
+  <div id="menu-screen" class="screen">
+    <div class="menu-header">
+      <div class="header-ornament left">❖</div>
+      <h2 class="fairy-title">
+        <i class="fas fa-scroll"></i>
+        <span class="title-text">Книга Чарівних Завдань</span>
+        <i class="fas fa-feather-alt"></i>
+      </h2>
+      <div class="header-ornament right">❖</div>
+      <div class="fairy-dust"></div>
+    </div>
+
+    <div class="magic-stats">
+      <div class="stat-card stat-gold">
+        <div class="stat-icon-wrapper">
+          <div class="stat-icon">💫</div>
+          <div class="stat-glow"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-label">Магічні бали</div>
+          <div class="stat-value" id="totalScore">0</div>
+          <div class="stat-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" id="score-progress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-silver">
+        <div class="stat-icon-wrapper">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-glow"></div>
+        </div>
+        <div class="stat-content">
+          <div class="stat-label">Пройдено випробувань</div>
+          <div class="stat-value" id="completedTasks">0/4</div>
+          <div class="stat-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" id="tasks-progress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quest-scroll">
+      <div class="scroll-decoration top">
+        <div class="scroll-corner left">❧</div>
+        <div class="scroll-line"></div>
+        <div class="scroll-corner right">❧</div>
+      </div>
+
+      <div class="scroll-content">
+        <div class="quest-buttons">
+          <button onclick="startHeartsGame()" class="quest-button quest-heart" id="hearts-btn">
+            <div class="quest-glow"></div>
+            <div class="quest-icon-wrapper">
+              <div class="quest-icon">💖</div>
+              <div class="quest-pulse"></div>
+            </div>
+            <div class="quest-info">
+              <div class="quest-title">Магія сердець</div>
+              <div class="quest-desc">Збери енергію кохання</div>
+              <div class="quest-points">+30 балів</div>
+            </div>
+            <div class="quest-status" id="hearts-status">
+              <span class="status-text">🔓 Доступно</span>
+            </div>
+          </button>
+
+          <button onclick="startPhraseGame()" class="quest-button quest-scroll" id="phrases-btn">
+            <div class="quest-glow"></div>
+            <div class="quest-icon-wrapper">
+              <div class="quest-icon">📜</div>
+              <div class="quest-pulse"></div>
+            </div>
+            <div class="quest-info">
+              <div class="quest-title">Забутий сувій</div>
+              <div class="quest-desc">Віднови заклинання кохання</div>
+              <div class="quest-points">+50 балів</div>
+            </div>
+            <div class="quest-status" id="phrases-status">
+              <span class="status-text">🔒 Замкнено</span>
+            </div>
+          </button>
+
+          <button onclick="startMemoryGame()" class="quest-button quest-crystal" id="memory-btn">
+            <div class="quest-glow"></div>
+            <div class="quest-icon-wrapper">
+              <div class="quest-icon">🔮</div>
+              <div class="quest-pulse"></div>
+            </div>
+            <div class="quest-info">
+              <div class="quest-title">Кришталеві спогади</div>
+              <div class="quest-desc">Знайди магічні пари</div>
+              <div class="quest-points">+40 балів</div>
+            </div>
+            <div class="quest-status" id="memory-status">
+              <span class="status-text">🔒 Замкнено</span>
+            </div>
+          </button>
+
+          <button onclick="startPuzzleGame()" class="quest-button quest-puzzle" id="puzzle-btn">
+            <div class="quest-glow"></div>
+            <div class="quest-icon-wrapper">
+              <div class="quest-icon">🧩</div>
+              <div class="quest-pulse"></div>
+            </div>
+            <div class="quest-info">
+              <div class="quest-title">Пазл душі</div>
+              <div class="quest-desc">Склади образ кохання</div>
+              <div class="quest-points">+60 балів</div>
+            </div>
+            <div class="quest-status" id="puzzle-status">
+              <span class="status-text">🔒 Замкнено</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="scroll-decoration bottom">
+        <div class="scroll-corner left">❧</div>
+        <div class="scroll-line"></div>
+        <div class="scroll-corner right">❧</div>
+      </div>
+    </div>
+
+    <div class="progress-info">
+      <div class="progress-card">
+        <div class="progress-icon">✨</div>
+        <div class="progress-content">
+          <div class="progress-label">Завершено заклинань:</div>
+          <div class="progress-value" id="completed-spells">0</div>
+        </div>
+        <div class="progress-badge" id="spells-badge">15</div>
+      </div>
+    </div>
+
+    <button onclick="showFinal()" class="final-quest-button" id="final-btn" disabled>
+      <div class="final-content">
+        <div class="final-icon">
+          <i class="fas fa-crown"></i>
+          <div class="crown-glow"></div>
+        </div>
+        <div class="final-text">
+          <div class="final-title">Отримати королівське запрошення</div>
+          <div class="final-subtitle">Фінальна нагорода</div>
+        </div>
+      </div>
+      <div class="final-sparkles">
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+      </div>
+      <div class="final-lock">
+        <i class="fas fa-lock"></i>
+      </div>
+    </button>
+
+    <div class="magic-prophecy">
+      <div class="prophecy-ornament left">«</div>
+      <div class="prophecy-text">
+        <p>"Кожне випробування наближає тебе до таємниці кохання..."</p>
+      </div>
+      <div class="prophecy-ornament right">»</div>
+    </div>
+  </div>
+
+  <!-- ГРА 1: МАГІЯ СЕРЦЕЦЬ -->
+  <div id="hearts-screen" class="screen">
+    <div class="game-background">
+      <div class="bg-cloud cloud-1">☁️</div>
+      <div class="bg-cloud cloud-2">☁️</div>
+      <div class="bg-cloud cloud-3">☁️</div>
+    </div>
+
+    <div class="game-castle">
+      <div class="tower tower-left">🏰</div>
+      <div class="tower tower-center">🏰</div>
+      <div class="tower tower-right">🏰</div>
+    </div>
+
+    <div class="game-header">
+      <div class="game-header-content">
+        <div class="game-icon">
+          <i class="fas fa-heart"></i>
+          <div class="icon-glow"></div>
+        </div>
+        <h2 class="game-title">Випробування Сердець</h2>
+        <div class="game-subtitle">Магія кохання чекає на тебе</div>
+      </div>
+
+      <div class="game-story">
+        <div class="story-card">
+          <div class="story-icon">✨</div>
+          <p>Збирай магічні сердечка, що падають з небес!</p>
+        </div>
+        <div class="story-card">
+          <div class="story-icon">💫</div>
+          <p>Уникай темних сердець, бо вони вкрадуть твою магію</p>
+        </div>
+      </div>
+
+      <div class="magic-stats game-stats">
+        <div class="magic-stat stat-timer">
+          <div class="stat-icon">
+            <i class="fas fa-hourglass"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Час</div>
+            <div class="stat-value" id="time">20</div>
+          </div>
+        </div>
+
+        <div class="magic-stat stat-score">
+          <div class="stat-icon">
+            <i class="fas fa-gem"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Магія</div>
+            <div class="stat-value" id="score">0</div>
+          </div>
+        </div>
+
+        <div class="magic-stat stat-target">
+          <div class="stat-icon">
+            <i class="fas fa-star"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Ціль</div>
+            <div class="stat-value">15+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="game-area" class="magic-garden">
+      <div class="garden-background">
+        <div class="tree tree-1">🌳</div>
+        <div class="tree tree-2">🌲</div>
+        <div class="tree tree-3">🌴</div>
+        <div class="flower flower-1">🌷</div>
+        <div class="flower flower-2">🌹</div>
+        <div class="flower flower-3">🌸</div>
+        <div class="flower flower-4">🌺</div>
+      </div>
+      <div class="hearts-container"></div>
+    </div>
+
+    <div class="spell-buttons">
+      <button onclick="goToMenu()" class="spell-button spell-return">
+        <div class="button-icon">
+          <i class="fas fa-door-open"></i>
+        </div>
+        <span>Повернутися</span>
+      </button>
+
+      <button onclick="endHeartsGame()" class="spell-button spell-complete">
+        <div class="button-icon">
+          <i class="fas fa-magic"></i>
+        </div>
+        <span>Завершити</span>
+      </button>
+
+      <button onclick="heartsHint()" class="spell-button spell-hint">
+        <div class="button-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <span>Підказка феї</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ГРА 2: ЗАКЛИНАННЯ КОХАННЯ -->
+  <div id="phrases-screen" class="screen">
+    <div class="game-background library-bg">
+      <div class="library-shelf shelf-1">📚</div>
+      <div class="library-shelf shelf-2">📚</div>
+      <div class="library-candle">🕯️</div>
+    </div>
+
+    <div class="game-header">
+      <div class="game-header-content">
+        <div class="game-icon">
+          <i class="fas fa-scroll"></i>
+          <div class="icon-glow"></div>
+        </div>
+        <h2 class="game-title">Стародавня Бібліотека</h2>
+        <div class="game-subtitle">Тут зберігаються таємниці кохання</div>
+      </div>
+
+      <div class="game-story">
+        <div class="story-card">
+          <div class="story-icon">📜</div>
+          <p>У цій бібліотеці зберігаються всі заклинання кохання</p>
+        </div>
+        <div class="story-card">
+          <div class="story-icon">🔗</div>
+          <p>Знайди правильні частини, щоб відновити магію</p>
+        </div>
+      </div>
+
+      <div class="magic-stats game-stats">
+        <div class="magic-stat spell-stat">
+          <div class="stat-icon">
+            <i class="fas fa-spell-check"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Заклинань</div>
+            <div class="stat-value" id="matched-count">0/15</div>
+          </div>
+        </div>
+
+        <div class="magic-stat complete-stat">
+          <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Завершено</div>
+            <div class="stat-value" id="completed-spells-count">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spellbook-container">
+      <div class="column-header left-header">
+        <div class="header-icon">
+          <i class="fas fa-quote-left"></i>
+        </div>
+        <h3 class="column-title">Початок заклинань</h3>
+        <div class="header-hint">Перетягни сюди</div>
+      </div>
+
+      <div class="column-header right-header">
+        <div class="header-icon">
+          <i class="fas fa-quote-right"></i>
+        </div>
+        <h3 class="column-title">Завершення заклинань</h3>
+        <div class="header-hint">Перетягни зліва</div>
+      </div>
+
+      <div class="spellbook-columns">
+        <div id="leftColumn" class="spell-scroll left-scroll">
+          <div class="scroll-border"></div>
+        </div>
+
+        <div id="rightColumn" class="spell-scroll right-scroll">
+          <div class="scroll-border"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spell-buttons">
+      <button onclick="goToMenu()" class="spell-button spell-return">
+        <div class="button-icon">
+          <i class="fas fa-door-open"></i>
+        </div>
+        <span>Повернутися</span>
+      </button>
+
+      <button onclick="phrasesHint()" class="spell-button spell-hint">
+        <div class="button-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <span>Підказка феї</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ГРА 3: КРИШТАЛЕВІ СПОГАДИ -->
+  <div id="memory-screen" class="screen">
+    <div class="game-background crystal-bg">
+      <div class="crystal-wall crystal-1">💎</div>
+      <div class="crystal-wall crystal-2">🔮</div>
+      <div class="crystal-wall crystal-3">✨</div>
+      <div class="crystal-wall crystal-4">🌟</div>
+    </div>
+
+    <div class="game-header">
+      <div class="game-header-content">
+        <div class="game-icon">
+          <i class="fas fa-crystal-ball"></i>
+          <div class="icon-glow"></div>
+        </div>
+        <h2 class="game-title">Печера Забутих Кришталів</h2>
+        <div class="game-subtitle">Де кожен камінь зберігає спогади</div>
+      </div>
+
+      <div class="game-story">
+        <div class="story-card">
+          <div class="story-icon">💎</div>
+          <p>Кожен кришталь зберігає спогади про кохання</p>
+        </div>
+        <div class="story-card">
+          <div class="story-icon">🧠</div>
+          <p>Знайди однакові пари, перш ніж час вийде</p>
+        </div>
+      </div>
+
+      <div class="magic-stats game-stats">
+        <div class="magic-stat time-stat">
+          <div class="stat-icon">
+            <i class="fas fa-hourglass-end"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Час</div>
+            <div class="stat-value" id="memory-time">60</div>
+          </div>
+        </div>
+
+        <div class="magic-stat pair-stat">
+          <div class="stat-icon">
+            <i class="fas fa-gem"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Пари</div>
+            <div class="stat-value" id="memory-pairs">0/8</div>
+          </div>
+        </div>
+
+        <div class="magic-stat move-stat">
+          <div class="stat-icon">
+            <i class="fas fa-redo"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Спроби</div>
+            <div class="stat-value" id="memory-moves">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="memory-grid" class="crystal-grid"></div>
+
+    <div class="spell-buttons">
+      <button onclick="goToMenu()" class="spell-button spell-return">
+        <div class="button-icon">
+          <i class="fas fa-door-open"></i>
+        </div>
+        <span>Повернутися</span>
+      </button>
+
+      <button onclick="memoryHint()" class="spell-button spell-hint">
+        <div class="button-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <span>Підказка феї</span>
+      </button>
+
+      <button onclick="resetMemoryGame()" class="spell-button spell-reset">
+        <div class="button-icon">
+          <i class="fas fa-sync"></i>
+        </div>
+        <span>Почати знову</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ГРА 4: ПАЗЛ ДУШІ (ПОВНІСТЮ ПЕРЕРОБЛЕНА) -->
+  <div id="puzzle-screen" class="screen">
+    <div class="game-background garden-bg">
+      <div class="garden-element butterfly-1">🦋</div>
+      <div class="garden-element butterfly-2">🦋</div>
+      <div class="garden-element mushroom">🍄</div>
+      <div class="garden-element leaf">🍃</div>
+    </div>
+
+    <div class="game-header">
+      <div class="game-header-content">
+        <div class="game-icon">
+          <i class="fas fa-puzzle-piece"></i>
+          <div class="icon-glow"></div>
+        </div>
+        <h2 class="game-title">Зачарований Сад</h2>
+        <div class="game-subtitle">Склади камінці душі у правильному порядку</div>
+      </div>
+
+      <div class="game-story">
+        <div class="story-card">
+          <div class="story-icon">🧩</div>
+          <p>Феї розсипали магічні камені душі по всьому саду</p>
+        </div>
+        <div class="story-card">
+          <div class="story-icon">🌈</div>
+          <p>Віднови правильний порядок каменів за кольором веселки</p>
+        </div>
+      </div>
+
+      <div class="magic-stats game-stats">
+        <div class="magic-stat progress-stat">
+          <div class="stat-icon">
+            <i class="fas fa-puzzle-piece"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Прогрес</div>
+            <div class="stat-value" id="puzzle-progress">0%</div>
+          </div>
+        </div>
+
+        <div class="magic-stat move-stat">
+          <div class="stat-icon">
+            <i class="fas fa-hand-point-up"></i>
+            <div class="pulse"></div>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Переміщень</div>
+            <div class="stat-value" id="puzzle-moves">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rainbow-guide">
+      <div class="guide-header">
+        <div class="guide-icon">🌈</div>
+        <h3 class="guide-title">Правильний порядок каменів:</h3>
+      </div>
+      <div class="rainbow-order">
+        <div class="color-sample active" data-color="pink">
+          <div class="color-circle" style="background: #ff9acd"></div>
+          <div class="color-text">💖</div>
+          <div class="color-name">Рожевий</div>
+        </div>
+        <div class="color-sample" data-color="orange">
+          <div class="color-circle" style="background: #ffb366"></div>
+          <div class="color-text">🧡</div>
+          <div class="color-name">Оранжевий</div>
+        </div>
+        <div class="color-sample" data-color="yellow">
+          <div class="color-circle" style="background: #fff066"></div>
+          <div class="color-text">💛</div>
+          <div class="color-name">Жовтий</div>
+        </div>
+        <div class="color-sample" data-color="green">
+          <div class="color-circle" style="background: #66ff66"></div>
+          <div class="color-text">💚</div>
+          <div class="color-name">Зелений</div>
+        </div>
+        <div class="color-sample" data-color="blue">
+          <div class="color-circle" style="background: #66b3ff"></div>
+          <div class="color-text">💙</div>
+          <div class="color-name">Синій</div>
+        </div>
+        <div class="color-sample" data-color="purple">
+          <div class="color-circle" style="background: #cc66ff"></div>
+          <div class="color-text">💜</div>
+          <div class="color-name">Фіолетовий</div>
+        </div>
+        <div class="color-sample" data-color="black">
+          <div class="color-circle" style="background: #666666"></div>
+          <div class="color-text">🖤</div>
+          <div class="color-name">Чорний</div>
+        </div>
+        <div class="color-sample" data-color="white">
+          <div class="color-circle" style="background: #ffffff; border: 2px solid #ddd"></div>
+          <div class="color-text">🤍</div>
+          <div class="color-name">Білий</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="puzzle-container">
+      <div class="puzzle-board-container">
+        <div class="board-header">
+          <div class="board-title">Поле пазлів</div>
+          <div class="board-hint">Перетягни камені на правильні місця</div>
+        </div>
+        <div id="puzzle-board" class="soul-puzzle"></div>
+      </div>
+
+      <div class="puzzle-targets-container">
+        <div class="targets-header">
+          <div class="targets-title">Цільові позиції</div>
+          <div class="targets-hint">Розташуй камені тут</div>
+        </div>
+        <div id="puzzle-targets" class="puzzle-targets"></div>
+      </div>
+    </div>
+
+    <div class="spell-buttons">
+      <button onclick="goToMenu()" class="spell-button spell-return">
+        <div class="button-icon">
+          <i class="fas fa-door-open"></i>
+        </div>
+        <span>Повернутися</span>
+      </button>
+
+      <button onclick="puzzleHint()" class="spell-button spell-hint">
+        <div class="button-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <span>Підказка</span>
+      </button>
+
+      <button onclick="resetPuzzle()" class="spell-button spell-reset">
+        <div class="button-icon">
+          <i class="fas fa-random"></i>
+        </div>
+        <span>Перемішати</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ЗАГАДКИ ФЕЙ -->
+  <div id="questions-screen" class="screen">
+    <div class="fairy-circle">
+      <div class="fairy fairy-5">🧚‍♀️</div>
+      <div class="fairy fairy-6">🧚</div>
+      <div class="fairy fairy-7">✨</div>
+    </div>
+
+    <div class="riddle-container">
+      <div class="riddle-header">
+        <div class="riddle-icon">
+          <i class="fas fa-hat-wizard"></i>
+          <div class="icon-glow"></div>
+        </div>
+        <h2 class="riddle-title">Загадки Стародавніх Фей</h2>
+        <div class="riddle-progress">
+          <div class="progress-circle">
+            <span id="current-question">1</span>
+            <span class="progress-separator">/</span>
+            <span id="total-questions">2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="riddle-content">
+        <div class="riddle-card">
+          <div class="card-decoration top">❦</div>
+          <div class="riddle-text" id="question-text"></div>
+          <div class="card-decoration bottom">❦</div>
+        </div>
+
+        <div class="riddle-hint">
+          <div class="hint-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <div class="hint-text">
+            <span id="hint-text">Відповідь прихована у казках кохання...</span>
+          </div>
+        </div>
+
+        <div id="options-container" class="riddle-options"></div>
+
+        <div id="text-answer-container" class="riddle-answer" style="display: none;">
+          <div class="answer-input">
+            <input type="text" id="text-answer" placeholder="Твоя відповідь..."
+                   onkeypress="if(event.key === 'Enter') submitTextAnswer()">
+            <div class="input-border"></div>
+          </div>
+          <button onclick="submitTextAnswer()" class="magic-answer-button">
+            <div class="button-icon">
+              <i class="fas fa-feather-alt"></i>
+            </div>
+            <span>Відповісти</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="riddle-controls">
+        <button onclick="skipQuestion()" class="fairy-button">
+          <div class="button-icon">
+            <i class="fas fa-forward"></i>
+          </div>
+          <span>Наступна загадка</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ФІНАЛЬНИЙ СУРПРИЗ -->
+  <div id="final-screen" class="screen">
+    <div class="final-celebration"></div>
+
+    <div class="royal-invitation">
+      <div class="invitation-seal">
+        <div class="seal-ring">
+          <div class="ring-inner"></div>
+          <div class="ring-outer"></div>
+        </div>
+        <div class="seal-wax"></div>
+        <div class="seal-symbol">💖</div>
+        <div class="seal-glow"></div>
+      </div>
+
+      <div class="invitation-content">
+        <div class="invitation-header">
+          <div class="header-ornament left">❖</div>
+          <h2 class="invitation-title">
+            <i class="fas fa-crown"></i>
+            <span>Королівське Запрошення</span>
+            <i class="fas fa-heart"></i>
+          </h2>
+          <div class="header-ornament right">❖</div>
+          <div class="invitation-subtitle">Особлива подія року</div>
+        </div>
+
+        <div class="invitation-text">
+          <p class="salutation">Шановна <span id="girl-name" class="royal-name-highlight">Принцесо Єлезавето</span>,</p>
+
+          <div class="message-paragraph">
+            <p>Твоя відвага та мудрість вразили все королівство. Пройшовши всі випробування стародавніх фей, ти довела силу свого серця та гідність носити титул Принцеси Кохання.</p>
+          </div>
+
+          <div class="invitation-main">
+            <div class="invitation-card">
+              <div class="card-header">
+                <div class="card-icon">🎭</div>
+                <div class="card-title">Бал у Замку Вічного Кохання</div>
+              </div>
+
+              <div class="card-details">
+                <div class="detail-row">
+                  <div class="detail-icon">
+                    <i class="fas fa-calendar-star"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Дата:</span>
+                    <span class="detail-value">14 лютого</span>
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-icon">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Час:</span>
+                    <span class="detail-value">19:00</span>
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Місце:</span>
+                    <span id="restaurant-name" class="detail-value">Ресторан "Срібний Місяць"</span>
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-icon">
+                    <i class="fas fa-vest"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Вбрання:</span>
+                    <span class="detail-value">Вечірні сукні та фраки</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-note">
+                <div class="note-icon">
+                  <i class="fas fa-star"></i>
+                </div>
+                <span>Очікуй на карету, запряжену єдинорогами</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="message-paragraph">
+            <p>Цей вечір буде наповнений музикою зірок, танцями під місячним сяйвом та сюрпризами, що запам'ятаються навіки.</p>
+          </div>
+
+          <div class="royal-signature">
+            <div class="signature-content">
+              <p>З найглибшою повагою та безмежною любов'ю,</p>
+              <div class="signature-box">
+                <div id="boy-name" class="signature-name">Принц Віталій</div>
+                <div class="signature-title">Володар Замку Вічного Кохання</div>
+              </div>
+            </div>
+            <div class="signature-seal">
+              <div class="seal-circle">👑</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="invitation-actions">
+        <button onclick="printInvitation()" class="royal-button royal-print">
+          <div class="button-icon">
+            <i class="fas fa-scroll"></i>
+          </div>
+          <span>Зачарувати сувій</span>
+        </button>
+        <button onclick="shareInvitation()" class="royal-button royal-share">
+          <div class="button-icon">
+            <i class="fas fa-share-alt"></i>
+          </div>
+          <span>Поділитися звісткою</span>
+        </button>
+        <button onclick="goToMenu()" class="royal-button royal-return">
+          <div class="button-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <span>До королівства</span>
+        </button>
+      </div>
+
+      <div class="final-prophecy">
+        <div class="prophecy-content">
+          <div class="quote-mark left">«</div>
+          <p>Кохання - це єдина магія, яка може змінити долю світу</p>
+          <div class="quote-mark right">»</div>
+        </div>
+        <div class="prophecy-author">– Стародавнє пророцтво фей</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МУЗИЧНЕ ЗАКЛИНАННЯ -->
+  <div class="spell-control">
+    <button onclick="toggleMusic()" id="music-btn" class="music-spell">
+      <div class="music-icon">
+        <i class="fas fa-harp"></i>
+        <div class="sound-waves">
+          <div class="wave"></div>
+          <div class="wave"></div>
+          <div class="wave"></div>
+        </div>
+      </div>
+      <span id="music-text">Музика фей</span>
+      <div class="music-status" id="music-status">
+        <i class="fas fa-volume-up"></i>
+      </div>
+    </button>
+  </div>
+
+  <!-- СКРИТІ НАЛАШТУВАННЯ -->
+  <div class="magic-settings">
+    <button onclick="resetQuest()" class="reset-spell">
+      <div class="reset-icon">
+        <i class="fas fa-undo-alt"></i>
+      </div>
+      <span>Почати знову</span>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
